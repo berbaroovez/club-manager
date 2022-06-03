@@ -151,7 +151,7 @@ const Post = () => {
                   <AdjustmentsIcon className="h-6 w-6 text-white" />
                 )}
               </button>
-              <h1 className="mb-4 text-2xl font-bold text-gray-900">
+              <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white ">
                 {teamInfo.longName}
               </h1>
 
@@ -226,7 +226,7 @@ const Post = () => {
 
            </div> */}
             <div className="mb-8 max-w-4xl">
-              <h2 className=" text-lg font-semibold text-gray-900">
+              <h2 className=" text-lg font-semibold text-gray-900 dark:text-white">
                 Coach Info
               </h2>
               <div className="grid grid-cols-2 rounded bg-slate-200 p-4 ">
@@ -308,7 +308,9 @@ const Post = () => {
 
             {/* Leagues Info */}
             <div className=" mb-8  max-w-4xl">
-              <h2 className="text-lg font-semibold text-gray-900">Leagues</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Leagues
+              </h2>
               <div className="flex min-h-[100px]  flex-col  content-center rounded bg-slate-200 p-4 shadow-md ">
                 {editMode ? (
                   <>
@@ -385,12 +387,12 @@ const Post = () => {
           </div>
 
           {/* //end of team info div */}
-          <div className="right-col relative col-span-3 h-full overflow-y-scroll md:h-2/3 ">
-            <h3 className="mb-4 bg-slate-100 text-2xl font-bold text-gray-900">
+          <div className="right-col relative col-span-3 h-full overflow-y-scroll rounded md:h-2/3">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               Games
             </h3>
             {teamSchedule && (
-              <div>
+              <div className="rounded bg-slate-200 p-4">
                 {teamSchedule.map((game: Game) => {
                   let isGameAtHome = false
                   let teamWerePlaying = game.homeTeam

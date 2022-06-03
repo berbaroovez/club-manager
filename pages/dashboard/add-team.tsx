@@ -9,8 +9,8 @@ const index = () => {
   }
 
   return (
-    <div className="grid">
-      <h1 className="mb-8 text-center text-2xl font-bold text-gray-800">
+    <div className="flex flex-col items-center">
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white ">
         Add Team
       </h1>
       <AddTeam />
