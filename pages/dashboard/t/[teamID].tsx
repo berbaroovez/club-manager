@@ -134,7 +134,7 @@ const Post = () => {
   return (
     <div className="px-4">
       {teamInfo && (
-        <div className="relative  grid max-w-7xl grid-cols-1 md:grid-cols-10 md:gap-4">
+        <div className="relative  mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-10 md:gap-4">
           <div className="left-col col-span1 md:col-span-7 ">
             <div className="relative mb-8 max-w-4xl">
               <button
