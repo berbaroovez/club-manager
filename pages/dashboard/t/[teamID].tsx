@@ -104,7 +104,7 @@ const Post = () => {
             let key: keyof Schedule
 
             for (key in schedule) {
-              if (key !== 'IWSL' && key !== 'docID') {
+              if (key !== 'docID') {
                 const tempObject = schedule[key]
                 if (tempObject !== undefined) {
                   for (let games = 0; games < tempObject.length; games++) {
