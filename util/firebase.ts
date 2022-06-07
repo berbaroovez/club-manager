@@ -61,6 +61,7 @@ export interface Schedule {
 	"State/President Cup"?: NISLGame[];
 	"IWSL"?: Game[];
 	docID: string;
+	date: Date;
 }
 
 const getAllSchedules = async (): Promise<Schedule[] | null> => {

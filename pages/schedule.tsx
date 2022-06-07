@@ -5,7 +5,7 @@ import { Game } from '../util/types'
 
 // var formatOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-const Schedule = () => {
+const HomeSchedulePage = () => {
   // const [groupedGames, setGroupedGames] = useState<{ [key: string]: Game[] }>({});
   const [groupedGames, setGroupedGames] = useState({})
   const [groupedGamesKeys, setGroupedGamesKeys] = useState<string[]>([])
@@ -46,7 +46,7 @@ const Schedule = () => {
 
         for (key in info[i]) {
           // console.log(key)
-          if (key !== 'IWSL' && key !== 'docID') {
+          if (key !== 'docID' && key !== 'date') {
             const tempObject = info[i][key]
             if (tempObject !== undefined) {
               for (let games = 0; games < tempObject.length; games++) {
@@ -72,7 +72,7 @@ const Schedule = () => {
     //we then will group them into two categores front field which is field 1,2 an 4 and back field which is 3,5
     //we do this by checking if the location includes Field #1 or Field #2 or Field #4
     for (let i = 0; i < homeGames.length; i++) {
-      console.log(homeGames[i].fullDate)
+      // console.log(homeGames[i].fullDate)
       const tempObject = homeGames[i]
       const date = tempObject.shortDate
 
@@ -90,9 +90,15 @@ const Schedule = () => {
         ) {
           console.log('Field 1 or 2 or 4 creating object')
           groupingObject[date]['frontField'] = [tempObject]
-        } else {
+        } else if (
+          tempObject.location.toLowerCase().includes('#3') ||
+          tempObject.location.toLowerCase().includes('#5')
+        ) {
           console.log('Field 3 or 5 creating object')
           groupingObject[date]['backField'] = [tempObject]
+        } else {
+          console.log('Field is undefined')
+          console.log(tempObject)
         }
       } else {
         //if the date already exists we now need to check if the field arrays exists and if not create them
@@ -188,4 +194,4 @@ const Schedule = () => {
   )
 }
 
-export default Schedule
+export default HomeSchedulePage

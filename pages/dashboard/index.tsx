@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../../util/auth'
 import { getTeams } from '../../util/firebase'
 import { TeamInfo } from '../../util/types'
-
+import { SearchIcon, CalendarIcon, UserAddIcon } from '@heroicons/react/outline'
+import LinkCards from '../../components/dashboard/LinkCards'
 const dashboard = () => {
   const [teams, setTeams] = useState<TeamInfo[]>([])
   const { user } = useAuth()
@@ -29,22 +30,22 @@ const dashboard = () => {
       <h1 className="mb-8 text-center text-2xl font-bold text-gray-800">
         Dashboard
       </h1>
-      <div className="flex gap-8 ">
-        <Link href="/dashboard/search-teams">
-          <div className="w-64 rounded bg-slate-200 px-6 py-4 text-center shadow-md hover:cursor-pointer hover:bg-slate-400">
-            Team Search
-          </div>
-        </Link>
-        <Link href="/schedule">
-          <div className="w-64 rounded bg-slate-200 px-6 py-4 text-center shadow-md hover:cursor-pointer hover:bg-slate-400">
-            Schedule
-          </div>
-        </Link>
-        <Link href="/dashboard/add-team">
-          <div className="w-64 rounded bg-slate-200 px-6 py-4 text-center shadow-md hover:cursor-pointer hover:bg-slate-400">
-            Add Team
-          </div>
-        </Link>
+      <div className="">
+        <LinkCards
+          url="/dashboard/search-teams"
+          title={'Search Teams'}
+          icon={<SearchIcon className="h-8 w-8" />}
+        />
+        <LinkCards
+          url="/schedule"
+          title={'Schedule'}
+          icon={<CalendarIcon className="h-8 w-8 " />}
+        />
+        <LinkCards
+          url="/dashboard/add-team"
+          title={'Add Team'}
+          icon={<UserAddIcon className="h-8 w-8 " />}
+        />
 
         {/* {teams?.map((team) => {
           return (

@@ -104,7 +104,7 @@ const Post = () => {
             let key: keyof Schedule
 
             for (key in schedule) {
-              if (key !== 'docID') {
+              if (key !== 'docID' && key !== 'date') {
                 const tempObject = schedule[key]
                 if (tempObject !== undefined) {
                   for (let games = 0; games < tempObject.length; games++) {
@@ -134,7 +134,7 @@ const Post = () => {
   return (
     <div className="px-4">
       {teamInfo && (
-        <div className="relative  grid grid-cols-1 md:grid-cols-10 md:gap-4">
+        <div className="relative  grid max-w-5xl grid-cols-1 md:grid-cols-10 md:gap-4">
           <div className="left-col col-span1 md:col-span-7 ">
             <div className="relative mb-8 max-w-4xl">
               <button
