@@ -1,9 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
+import { Schedule } from "./types";
 import { collection, addDoc, getFirestore, doc, getDocs, getDoc, setDoc } from "firebase/firestore";
-import { Game, LeagueURL, NISLGame, TeamInfo } from "./types";
+import { ChangeLog, Game, LeagueURL, NISLGame, TeamInfo } from "./types";
 // interface SimpleTeamInfo {
 // 	leagueURLS: LeagueURL[];
 // 	docID: string;
@@ -56,14 +56,6 @@ const updateTeamInfo = async (teamID: string, teamInfo: TeamInfo) => {
 	}
 };
 
-export interface Schedule {
-	"NISL/NPL"?: NISLGame[];
-	"State/President Cup"?: NISLGame[];
-	"IWSL"?: Game[];
-	docID: string;
-	date: Date;
-}
-
 const getAllSchedules = async (): Promise<Schedule[] | null> => {
 	const ScheduleArray = [] as Schedule[];
 	try {
@@ -93,6 +85,69 @@ const getTeamSchedule = async (teamID: string) => {
 	return null;
 };
 
+const getTeamChangeLog = async (teamID: string) => {
+	const ChangeLogArray = [] as ChangeLog[];
+	// schedule/${team}/changelogs/`
+	try {
+		const querySnapshot = await getDocs(
+			collection(db, `schedule/${teamID}/changelogs/`),
+		);
+
+		querySnapshot.forEach((doc) => {
+			ChangeLogArray.push({ ...doc.data() } as ChangeLog);
+		});
+		return ChangeLogArray;
+	} catch (e) {
+		console.log("errrror", e);
+	}
+	return null;
+};
+
+const getMatchInfo = async (teamID: string, matchID: string): Promise<
+	Game | NISLGame | null
+> => {
+	try {
+		const teamSchedule = await getTeamSchedule(teamID);
+
+		if (teamSchedule !== null) {
+			let key: keyof Schedule;
+
+			for (key in teamSchedule) {
+				if (key !== "docID" && key !== "date") {
+					//we have to check if its IWSL or a NISL format so we can return the correct type
+					console.log("KEY", key);
+					if (key === "IWSL") {
+						const keyData = teamSchedule[key];
+						if (keyData !== undefined) {
+							for (let i = 0; i < keyData.length; i++) {
+								if (keyData[i].matchNumber === matchID) {
+									return keyData[i];
+								}
+							}
+						}
+					} else {
+						console.log("NISL GAME");
+						const keyData = teamSchedule[key];
+						console.log("keyData", keyData);
+						if (keyData !== undefined) {
+							for (let i = 0; i < keyData.length; i++) {
+								console.log("keyData[i].matchNumber", keyData[i].matchNumber);
+								console.log("matchID", matchID);
+								if (keyData[i].matchNumber === matchID) {
+									return keyData[i];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	} catch (e) {
+		console.log(e);
+	}
+	return null;
+};
+
 const getTeamInfo = async (teamID: string) => {
 	try {
 		const docRef = doc(db, "teams", teamID);
@@ -115,4 +170,6 @@ export {
 	getTeamInfo,
 	getTeamSchedule,
 	updateTeamInfo,
+	getTeamChangeLog,
+	getMatchInfo,
 };

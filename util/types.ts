@@ -22,6 +22,21 @@ export interface NISLGame extends Game {
 	division: string;
 }
 
+export interface ChangeLog {
+	date: Date;
+	category: "Location" | "Team" | "Result" | "Time" | "Date";
+	from: string;
+	to: string;
+	matchNumber: string;
+}
+export interface Schedule {
+	"NISL/NPL"?: NISLGame[];
+	"State/President Cup"?: NISLGame[];
+	"IWSL"?: Game[];
+	docID: string;
+	date: Date;
+}
+
 export interface LeagueURL {
 	league: string;
 	url: string;

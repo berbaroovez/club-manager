@@ -2,12 +2,13 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../../util/auth'
 import {
+  getTeamChangeLog,
   getTeamInfo,
   getTeamSchedule,
-  Schedule,
   updateTeamInfo,
 } from '../../../util/firebase'
-import { Game, LeagueURL, TeamInfo } from '../../../util/types'
+import { Schedule } from '../../../util/types'
+import { ChangeLog, Game, LeagueURL, TeamInfo } from '../../../util/types'
 import {
   AdjustmentsIcon,
   CheckIcon,
@@ -19,12 +20,15 @@ import {
   seasons,
   years,
 } from '../../../util/form-information'
+import FeedItem from '../../../components/Feed/FeedItem'
+import Link from 'next/link'
 
-const Post = () => {
+const TeamPage = () => {
   const router = useRouter()
   const { teamID } = router.query
   const [teamInfo, setTeamInfo] = useState<TeamInfo>()
   const [teamSchedule, setTeamSchedule] = useState<any>()
+  const [teamChangeLog, setTeamChangeLog] = useState<any>()
   const { user } = useAuth()
 
   const [editMode, setEditMode] = useState(false)
@@ -121,6 +125,12 @@ const Post = () => {
           })
 
           setTeamSchedule(allGames)
+
+          const changeLog = await getTeamChangeLog(teamID)
+          console.log('Changes', changeLog)
+          if (changeLog !== null) {
+            setTeamChangeLog(changeLog)
+          }
         }
       }
     }
@@ -387,40 +397,59 @@ const Post = () => {
           </div>
 
           {/* //end of team info div */}
-          <div className="right-col relative col-span-3 h-full overflow-y-scroll rounded md:h-2/3">
-            <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-              Games
-            </h3>
-            {teamSchedule && (
-              <div className="rounded bg-slate-200 p-4">
-                {teamSchedule.map((game: Game) => {
-                  let isGameAtHome = false
-                  let teamWerePlaying = game.homeTeam
+          <div className="right-col relative col-span-3   rounded ">
+            <div className="schedule-col mb-8 overflow-y-scroll md:h-1/2">
+              <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                Games
+              </h3>
+              {teamSchedule && (
+                <div className="rounded bg-slate-200 p-4">
+                  {teamSchedule.map((game: Game) => {
+                    let isGameAtHome = false
+                    let teamWerePlaying = game.homeTeam
 
-                  if (game.homeTeam.toLowerCase().includes('inter fc')) {
-                    isGameAtHome = true
-                    teamWerePlaying = game.awayTeam
-                  }
+                    if (game.homeTeam.toLowerCase().includes('inter fc')) {
+                      isGameAtHome = true
+                      teamWerePlaying = game.awayTeam
+                    }
 
-                  return (
-                    <div className="mb-4 flex flex-col">
-                      <p className="font-semibold text-gray-900">
-                        {game.shortDate} at {game.time}
-                      </p>
-                      <p className="text-gray-600">
-                        {isGameAtHome ? 'vs.' : 'At'} {teamWerePlaying}
-                      </p>
-                      <a
-                        className="text-sm text-gray-400 hover:cursor-pointer hover:text-blue-400"
-                        href={game.locationURL}
-                      >
-                        {game.location}
-                      </a>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
+                    return (
+                      <div className="relative mb-4 flex flex-col">
+                        <p className="font-semibold text-gray-900">
+                          {game.shortDate} at {game.time}
+                        </p>
+
+                        <Link
+                          href={`/dashboard/t/${teamID}/${game.matchNumber}`}
+                        >
+                          <p className="absolute right-0 top-0 text-xs font-semibold text-gray-400 hover:cursor-pointer hover:text-blue-400">
+                            #{game.matchNumber}
+                          </p>
+                        </Link>
+                        <p className="text-gray-600">
+                          {isGameAtHome ? 'vs.' : 'At'} {teamWerePlaying}
+                        </p>
+                        <a
+                          className="text-sm text-gray-400 hover:cursor-pointer hover:text-blue-400"
+                          href={game.locationURL}
+                        >
+                          {game.location}
+                        </a>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+            <div className="changelog-col">
+              <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+                Changes
+              </h3>
+              {teamChangeLog?.map((changeLog: ChangeLog) => {
+                //@ts-ignore
+                return <FeedItem change={changeLog} teamID={teamID} />
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -428,4 +457,4 @@ const Post = () => {
   )
 }
 
-export default Post
+export default TeamPage

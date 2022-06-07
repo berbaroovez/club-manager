@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import GameTable from '../components/GameTable'
-import { getAllSchedules, Schedule } from '../util/firebase'
-import { Game } from '../util/types'
+import { getAllSchedules } from '../util/firebase'
+import { Game, Schedule } from '../util/types'
 
 // var formatOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
