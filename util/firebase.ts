@@ -2,7 +2,15 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { Schedule } from "./types";
-import { collection, addDoc, getFirestore, doc, getDocs, getDoc, setDoc } from "firebase/firestore";
+import {
+	collection,
+	addDoc,
+	getFirestore,
+	doc,
+	getDocs,
+	getDoc,
+	setDoc,
+} from "firebase/firestore";
 import { ChangeLog, Game, LeagueURL, NISLGame, TeamInfo } from "./types";
 // interface SimpleTeamInfo {
 // 	leagueURLS: LeagueURL[];
@@ -38,7 +46,7 @@ const getTeams = async (): Promise<TeamInfo[] | undefined> => {
 			// doc.data() is never undefined for query doc snapshots
 			// console.log(doc.id, " => ", doc.data());
 			TeamArray.push({ ...doc.data() as TeamInfo, docID: doc.id });
-		});
+		},);
 		return TeamArray;
 	} catch (e) {
 		console.log("errrror", e);
@@ -65,7 +73,7 @@ const getAllSchedules = async (): Promise<Schedule[] | null> => {
 			// console.log(doc.id, " => ", doc.data());
 			// console.log(doc.id, " => ", doc.data());
 			ScheduleArray.push({ ...doc.data(), docID: doc.id } as Schedule);
-		});
+		},);
 		return ScheduleArray;
 	} catch (e) {
 		console.log("errrror", e);
@@ -95,7 +103,7 @@ const getTeamChangeLog = async (teamID: string) => {
 
 		querySnapshot.forEach((doc) => {
 			ChangeLogArray.push({ ...doc.data() } as ChangeLog);
-		});
+		},);
 		return ChangeLogArray;
 	} catch (e) {
 		console.log("errrror", e);

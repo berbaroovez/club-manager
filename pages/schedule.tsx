@@ -139,8 +139,8 @@ const HomeSchedulePage = () => {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <h1 className="mb-8 text-3xl font-semibold text-gray-800 dark:text-white">
-        Schedules
+      <h1 className="mb-8 text-4xl font-bold text-gray-800 dark:text-white">
+        Home Schedule
       </h1>
 
       {groupedGamesKeys.map((key: string) => {

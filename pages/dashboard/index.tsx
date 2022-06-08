@@ -34,17 +34,17 @@ const dashboard = () => {
         <LinkCards
           url="/dashboard/search-teams"
           title={'Search Teams'}
-          icon={<SearchIcon className="h-8 w-8" />}
+          icon={<SearchIcon className="h-7 w-7" />}
         />
         <LinkCards
           url="/schedule"
           title={'Schedule'}
-          icon={<CalendarIcon className="h-8 w-8 " />}
+          icon={<CalendarIcon className="h-7 w-7 " />}
         />
         <LinkCards
           url="/dashboard/add-team"
           title={'Add Team'}
-          icon={<UserAddIcon className="h-8 w-8 " />}
+          icon={<UserAddIcon className="h-7 w-7 " />}
         />
 
         {/* {teams?.map((team) => {

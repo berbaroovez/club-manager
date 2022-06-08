@@ -6,7 +6,7 @@ interface SearchTeamTableProps {
 }
 
 const SearchTeamTable = ({ teamList }: SearchTeamTableProps) => (
-  <div className="relative max-w-5xl overflow-x-auto shadow-md dark:border-2 dark:border-gray-700 sm:rounded-lg">
+  <div className="relative w-[800px]  shadow-md dark:border-2 dark:border-gray-700 sm:rounded-lg mx-auto">
     <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
       <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
         <tr>

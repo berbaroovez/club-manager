@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import FeedItem from '../../../../components/Feed/FeedItem'
@@ -17,7 +18,7 @@ const MatchPage = () => {
       if (matchNumber !== undefined && typeof matchNumber === 'string') {
         if (teamID !== undefined && typeof teamID === 'string') {
           const data = await getMatchInfo(teamID, matchNumber)
-          console.log('DATA', data)
+     
           if (data !== null) {
             setMatch(data)
           }
@@ -31,8 +32,11 @@ const MatchPage = () => {
             const filteredChangeLog = changeLog.filter(change => {
               return parseInt(change.matchNumber) === parseInt(matchNumber)
             })
+
+            //sort chronologically
+            const sortedChangeLog = filteredChangeLog.sort((a, b) => a.date.valueOf() - b.date.valueOf())
             
-            setGameChangeLog(filteredChangeLog)
+            setGameChangeLog(sortedChangeLog)
 
           }
         }
@@ -59,6 +63,21 @@ const MatchPage = () => {
    
       
         <div className='mx-auto max-w-4xl px-4'>
+          <nav className="bg-grey-light rounded-md w-full font-extrabold">
+  <ol className="list-reset flex">
+    <li><Link href="/dashboard" ><span className="text-blue-600 hover:text-blue-700 cursor-pointer">Dashboard</span></Link></li>
+    <li><span className="text-blue-400 mx-2">/</span></li>
+    <li><Link href={`/dashboard/t/${teamID}`} >
+    <span className="text-blue-600 hover:text-blue-700 cursor-pointer">
+      {
+        match.homeTeam.toLowerCase().includes("inter fc") ? match.homeTeam : match.awayTeam
+      }
+      </span>
+    </Link></li>
+    <li><span className="text-blue-400 mx-2 ">/</span></li>
+    <li className="dark:text-white text-gray-900">Match #{matchNumber}</li>
+  </ol>
+</nav>
           <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white ">
             Match # {match.matchNumber} - {match.homeTeam} <span className='font-semibold text-blue-400'>vs</span> {match.awayTeam}
           </h1>

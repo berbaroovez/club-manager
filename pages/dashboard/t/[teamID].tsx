@@ -340,7 +340,7 @@ const TeamPage = () => {
                 {editMode ? (
                   <>
                     {teamInfo.leagueURLS.map((league, index) => (
-                      <div className="relative flex gap-x-1.5">
+                      <div className="relative flex gap-x-1.5 md:mr-8">
                         <select
                           className="w-24 appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow"
                           name="league"
@@ -354,7 +354,7 @@ const TeamPage = () => {
                         <input
                           required
                           type="text"
-                          className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow "
+                          className="w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow  "
                           name="url"
                           id="leagueURL"
                           placeholder="Enter URL to schedule"
@@ -365,7 +365,7 @@ const TeamPage = () => {
                         {index !== 0 && (
                           <div
                             onClick={() => removeLeagueURL(index)}
-                            className="absolute -right-8 top-1 p-1 text-red-300 hover:cursor-pointer  hover:text-red-500 "
+                            className="absolute -right-10 top-1 p-1 text-red-300 hover:cursor-pointer  hover:text-red-500 "
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -387,14 +387,14 @@ const TeamPage = () => {
                     ))}
                     <PlusCircleIcon
                       onClick={addLeagueURL}
-                      className="h-6 w-6 text-white"
+                      className="h-7 w-7  mt-2 text-green-400 hover:text-green-500 hover:cursor-pointer"
                     />
                   </>
                 ) : (
                   teamInfo.leagueURLS.map((league) => {
                     return (
                       <div 
-                      className="md:flex  md:items-center md:gap-4 md:flex-row"
+                      className="md:flex  md:items-center md:gap-4 md:flex-row "
                       >
                         <p className="font-semibold text-gray-900">
                           {league.league}

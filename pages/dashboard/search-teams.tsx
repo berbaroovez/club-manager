@@ -27,12 +27,18 @@ const index = () => {
     )
   }
   return (
-    <div className="flex flex-col items-center ">
-      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white ">
+    <div 
+    // className="flex flex-col items-center overflow-scroll md:overflow-hidden "
+    className='overflow-scroll md:overflow-hidden '
+    >
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white text-center ">
         Search Table
       </h1>
 
+
+
       {teamList && <SearchTeamTable teamList={teamList} />}
+    
     </div>
   )
 }
