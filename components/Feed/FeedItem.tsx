@@ -15,7 +15,7 @@ interface FeedItemProps {
 const FeedItem = ({ change, teamID }: FeedItemProps) => {
   return (
     <div className="mb-4 w-72 ">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 ">
         {/* // check category and then render icon */}
         {change.category === 'Date' ? (
           <CalendarIcon className="h-6 w-6 text-blue-400 " />
@@ -32,7 +32,7 @@ const FeedItem = ({ change, teamID }: FeedItemProps) => {
         <p className="font-semibold text-gray-800">
           {' '}
           <Link href={`/dashboard/t/${teamID}/${change.matchNumber}`}>
-            <span className="font-normal text-gray-400 hover:cursor-pointer hover:text-blue-400">
+            <span className=" text-gray-400 hover:cursor-pointer hover:text-blue-400">
               Game #{change.matchNumber}{' '}
             </span>
           </Link>

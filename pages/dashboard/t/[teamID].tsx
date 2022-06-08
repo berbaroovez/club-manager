@@ -142,9 +142,10 @@ const TeamPage = () => {
   }
 
   return (
-    <div className="px-4">
+    <div className='mx-4'>
       {teamInfo && (
-        <div className="relative  mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-10 md:gap-4">
+        // <div className='bg-orange-400 w-full'>
+        <div className="relative  mx-auto grid w-full  md:max-w-7xl grid-cols-1 md:grid-cols-10 md:gap-4">
           <div className="left-col col-span1 md:col-span-7 ">
             <div className="relative mb-8 max-w-4xl">
               <button
@@ -239,7 +240,7 @@ const TeamPage = () => {
               <h2 className=" text-lg font-semibold text-gray-900 dark:text-white">
                 Coach Info
               </h2>
-              <div className="grid grid-cols-2 rounded bg-slate-200 p-4 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 rounded bg-slate-200 p-4 ">
                 <div className="grid grid-rows-2">
                   <p className="text-lg text-gray-500">Coach Name</p>
 
@@ -261,7 +262,7 @@ const TeamPage = () => {
                     <p className="text-gray-900">{teamInfo.coach}</p>
                   )}
                 </div>
-                <div className="grid grid-rows-2">
+                <div className="md:grid md:grid-rows-2">
                   <p className="text-lg text-gray-500">Coach Email</p>
 
                   {editMode ? (
@@ -280,10 +281,11 @@ const TeamPage = () => {
                     />
                   ) : (
                     <a
-                      className="w-fit text-gray-900 hover:text-blue-400 "
+                      className="w-fit text-gray-900 hover:text-blue-400 break-words"
                       href={`mailto:${teamInfo.coachEmail}`}
                     >
-                      <p className="text-gray-900"> {teamInfo.coachEmail}</p>
+                      {teamInfo.coachEmail}
+                 
                     </a>
                   )}
                 </div>
@@ -321,6 +323,19 @@ const TeamPage = () => {
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Leagues
               </h2>
+ {/*
+                      <div className="">
+                        <p className="font-semibold text-gray-900">
+                          IWSL
+                        </p>
+                        <a
+                          className="break-words"
+                          
+                        >
+                          https://accenture.wd3.myworkdayjobs.com/AccentureCareers/login?redirect=%2FAccenture
+                        </a>
+                      </div> */}
+
               <div className="flex min-h-[100px]  flex-col  content-center rounded bg-slate-200 p-4 shadow-md ">
                 {editMode ? (
                   <>
@@ -378,12 +393,15 @@ const TeamPage = () => {
                 ) : (
                   teamInfo.leagueURLS.map((league) => {
                     return (
-                      <div className="flex flex-col items-center gap-4 md:flex-row">
+                      <div 
+                      className="md:flex  md:items-center md:gap-4 md:flex-row"
+                      >
                         <p className="font-semibold text-gray-900">
                           {league.league}
-                        </p>{' '}
+                        </p>
                         <a
-                          className="block max-w-4xl overflow-hidden text-ellipsis whitespace-nowrap text-gray-700 hover:cursor-pointer hover:text-blue-400 hover:underline focus:text-blue-400"
+                        className='break-words'
+                          // className="block max-w-4xl break-words md:overflow-hidden md:text-ellipsis md:whitespace-nowrap text-gray-700 hover:cursor-pointer hover:text-blue-400 hover:underline focus:text-blue-400"
                           href={league.url}
                         >
                           {league.url}
@@ -397,13 +415,13 @@ const TeamPage = () => {
           </div>
 
           {/* //end of team info div */}
-          <div className="right-col relative col-span-3   rounded ">
-            <div className="schedule-col mb-8 overflow-y-scroll md:h-1/2">
+          <div className="right-col relative col-span-3 rounded ">
+            <div className="schedule-col mb-8 md:h-1/2  overflow-hidden rounded">
               <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                 Games
               </h3>
               {teamSchedule && (
-                <div className="rounded bg-slate-200 p-4">
+                <div className="rounded bg-slate-100 h-full p-4 overflow-y-scroll ">
                   {teamSchedule.map((game: Game) => {
                     let isGameAtHome = false
                     let teamWerePlaying = game.homeTeam
@@ -445,10 +463,13 @@ const TeamPage = () => {
               <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                 Changes
               </h3>
+
+              <div className='rounded bg-slate-200 p-4'>
               {teamChangeLog?.map((changeLog: ChangeLog) => {
                 //@ts-ignore
                 return <FeedItem change={changeLog} teamID={teamID} />
               })}
+              </div>
             </div>
           </div>
         </div>
