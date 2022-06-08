@@ -127,7 +127,7 @@ const TeamPage = () => {
           setTeamSchedule(allGames)
 
           const changeLog = await getTeamChangeLog(teamID)
-          console.log('Changes', changeLog)
+        
           if (changeLog !== null) {
             setTeamChangeLog(changeLog)
           }
@@ -415,7 +415,7 @@ const TeamPage = () => {
           </div>
 
           {/* //end of team info div */}
-          <div className="right-col relative col-span-3 rounded ">
+          <div className="right-col relative col-span-3 rounded mb-8 ">
             <div className="schedule-col mb-8 md:h-1/2  overflow-hidden rounded">
               <h3 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                 Games
